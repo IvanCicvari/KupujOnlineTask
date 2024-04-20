@@ -25,4 +25,7 @@ jobs:
       run: dotnet test --no-build --verbosity normal
     - name: Send email notification
       run: |
-        echo "Your build completed." | mail -s "Build Status: ${{ job.status }}" ivancicva@gmail.com
+        sudo apt-get install git-email
+        git config --global --edit
+        git send-email --to=ivancicva@gmail.com --smtp-server=smtp.googlemail.com --smtp-encryption=tls --smtp-server-port=587 --smtp-user=youremail@gmail.com --no-chain-reply-to <<< "Your build completed."
+
